@@ -12,5 +12,5 @@ is a task time tracker
 - `ttc "task name" 1 hour`
    - `ttc` is the CLI app name
    - ` "task name" ` is the you want to track name
-   - ` 1 ` is the unsigned integer representing the time amount
-   - ` hour` is the time unit, can be seconds, minutes, hours
+   - ` 1 ` is the unsigned integer representing the time amount - duration
+   - ` hour` is the time unit, can be seconds, minutes, hours - duration_unit

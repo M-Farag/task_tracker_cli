@@ -7,7 +7,7 @@ use std::num::ParseIntError;
 /// 
 /// # Returns
 /// * `Result<usize, &str
-pub fn convert_text_to_integer(text:&String) -> Result<usize,ParseIntError>
+pub fn convert_text_to_usize(text:&String) -> Result<usize,ParseIntError>
 {
     let number:usize = text.parse()?;
     Ok(number)
