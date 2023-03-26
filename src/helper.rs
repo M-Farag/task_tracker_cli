@@ -39,8 +39,8 @@ mod test_helper_module {
     #[test]
     fn test_tp_convert_string_to_usize_works()
     {
-       let x:usize =  convert_text_to_usize(&String::from("10")).unwrap();
-       assert_eq!(10,x);
+       let result:Result<usize, ParseIntError> =  convert_text_to_usize(&String::from("10"));
+       assert_eq!(Ok(10),result);
     }
 
     #[test]
