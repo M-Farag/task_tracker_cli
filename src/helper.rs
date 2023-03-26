@@ -1,21 +1,30 @@
 use std::num::ParseIntError;
-/// Convert String references to usize
-/// 
-/// # Arguments
-/// 
-/// * `text` - A String reference that holds the text to be parsed
-/// 
-/// # Returns
-/// * `Result<usize, &str
+// Helper functions
+
+// Convert a String reference to a usize
+//
+// # Arguments
+//      * `text` - A String reference
+// # Returns
+//      * `Result<usize,ParseIntError>` - A Result with a usize and a ParseIntError
+//         * If the text cannot be converted to a usize, then an error is returned
 pub fn convert_text_to_usize(text:&String) -> Result<usize,ParseIntError>
 {
     let number:usize = text.parse()?;
     Ok(number)
 }
 
-pub fn validate_arguments_length(args:&Vec<String>, max_length:usize) -> Result<(),&str>
+// Validate the length of the arguments
+//
+// # Arguments
+//      * `args` - A Vec<String> reference
+//      * `expected_arguments_length` - A usize
+// # Returns
+//      * `Result<(),&str>` - A Result with a () and a &str
+//         * If the length of the arguments is less than the expected length, then an error is returned
+pub fn validate_arguments_length(args:&Vec<String>, expected_arguments_length:usize) -> Result<(),&str>
 {
-    if args.len() < max_length {
+    if args.len() < expected_arguments_length {
        return Err("Missing arguments");
     }
     Ok(())
@@ -66,7 +75,7 @@ mod test_helper_module {
     }
 
     #[test]
-    #[should_panic]
+    #[should_panic(expected = "Missing arguments")]
     fn test_helper_validate_arguments_with_exception_when_using_unwrap()
     {
         let args:Vec<String> = vec![String::from("a"),String::from("b"),String::from("c")];
