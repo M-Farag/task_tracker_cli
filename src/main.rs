@@ -4,6 +4,8 @@ use std::env;
 fn main() {
     let arguments:Vec<String> = env::args().collect();
 
+    helper::validate_arguments_length(&arguments, 4).unwrap();
+
     let t_name = arguments.get(1).expect("Err: Getting task name");
     let t_duration = helper::convert_text_to_usize(
         arguments.get(2).expect("Err: Getting task duration")   
