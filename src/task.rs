@@ -17,3 +17,9 @@ impl Task{
     }
     
 }
+
+#[cfg(test)]
+mod test_task_module {
+    use super::*;
+
+}
