@@ -12,10 +12,8 @@ impl Task{
         if arguments.len() < 4 {
             return Err("Err: Not enough arguments");
         }
-        let name = arguments.get(1).expect("Err: Getting task name").to_string();
-        let duration = arguments.get(2).expect("Err: Getting task duration").to_string();   
-        let unit = arguments.get(3).expect("Err: Getting duration unit").to_string();
-        Ok(Task { name, duration, unit })
+        
+        Ok(Task { name: arguments[1].clone(), duration: arguments[2].clone(), unit: arguments[3].clone() })
     }
     
 }
