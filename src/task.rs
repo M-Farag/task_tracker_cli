@@ -31,4 +31,15 @@ impl Task{
 mod test_task_module {
     use super::*;
 
+    #[test]
+    fn test_parse_duration() {
+        let duration = Task::parse_duration(&String::from("10"));
+        assert_eq!(duration, Ok(10));
+    }
+
+    #[test]
+    fn test_parse_duration_error() {
+        let duration = Task::parse_duration(&String::from("ten"));
+        assert_eq!(duration, Err("Err: Duration is not a number"));
+    }
 }
