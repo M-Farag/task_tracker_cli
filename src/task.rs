@@ -1,7 +1,7 @@
 #[derive(Debug)]
 pub struct Task {
     name:String,
-    duration:String,
+    duration:u64,
     unit:String
 }
 
@@ -12,8 +12,17 @@ impl Task{
         if arguments.len() < 4 {
             return Err("Err: Not enough arguments");
         }
-        
-        Ok(Task { name: arguments[1].clone(), duration: arguments[2].clone(), unit: arguments[3].clone() })
+        let duration = Task::parse_duration(&arguments[2])?;
+        Ok(Task { name: arguments[1].clone(), duration: duration, unit: arguments[3].clone() })
+    }
+
+    fn parse_duration(duration:&String) -> Result<u64,&'static str>
+    {
+        let duration = duration.parse::<u64>();
+        match duration {
+            Ok(duration) => Ok(duration),
+            Err(_) => Err("Err: Duration is not a number")
+        }
     }
     
 }
