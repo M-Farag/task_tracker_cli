@@ -9,10 +9,10 @@ pub struct Task {
 
 impl Task{
     const TASKS_FILE_NAME:&'static str = "tasks.txt";
-   pub fn new(arguments:Vec<String>) -> Result<Task,&'static str>
+   pub fn new(arguments:Vec<String>) -> Result<Task,Box<dyn Error>>
     {
         if arguments.len() < 4 {
-            return Err("Err: Not enough arguments");
+            return Err("Err: Not enough arguments".into());
         }
         let duration = Task::parse_duration(&arguments[2])?;
         Ok(Task { name: arguments[1].clone(), duration: duration, unit: arguments[3].clone() })
@@ -57,13 +57,13 @@ mod test_task_module {
 
     #[test]
     fn test_parse_duration() {
-        let duration = Task::parse_duration(&String::from("10"));
-        assert_eq!(duration, Ok(10));
+        let duration = Task::parse_duration(&String::from("10")).unwrap();
+        assert_eq!(duration, 10);
     }
 
     #[test]
+    #[should_panic]
     fn test_parse_duration_error() {
-        let duration = Task::parse_duration(&String::from("ten"));
-        assert_eq!(duration, Err("Err: Duration is not a number"));
+        let duration = Task::parse_duration(&String::from("ten")).unwrap();
     }
 }
