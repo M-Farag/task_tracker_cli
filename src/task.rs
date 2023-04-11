@@ -43,13 +43,10 @@ impl Task{
         Ok(true)
     }
 
-    fn parse_duration(duration:&String) -> Result<u64,&'static str>
+    fn parse_duration(duration:&String) -> Result<u64,Box<dyn Error>>
     {
-        let duration = duration.parse::<u64>();
-        match duration {
-            Ok(duration) => Ok(duration),
-            Err(_) => Err("Err: Duration is not a number")
-        }
+        let duration = duration.parse::<u64>()?;
+        Ok(duration)
     }
     
 }
