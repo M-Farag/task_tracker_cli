@@ -1,3 +1,5 @@
+//! Tasks module contains all the necessary functions to create a task and log it to a file
+
 use std::{fs, error::Error, io::Write};
 use std::env;
 #[derive(Debug)]
@@ -9,6 +11,21 @@ pub struct Task {
 
 impl Task{
         const TASKS_FILE_NAME:&'static str = "tasks.txt";
+
+        /// Creates a new task
+        /// # Arguments
+        /// * `name` - Name of the task
+        /// * `duration` - Duration of the task
+        /// * `unit` - Unit of the duration
+        /// # Example
+        /// ```
+        /// let task = Task::new("Task 1", 10, "m");
+        /// ```
+        /// # Panics
+        /// This function will panic if the duration is not a number
+        /// # Errors
+        /// This function will return an error if the duration is not a number
+        /// 
         pub fn new() -> Result<Task,Box<dyn Error>>
         {
             let arguments:Vec<String> = env::args().collect();
