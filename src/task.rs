@@ -17,10 +17,7 @@ impl Task{
         /// * `name` - Name of the task
         /// * `duration` - Duration of the task
         /// * `unit` - Unit of the duration
-        /// # Example
-        /// ```
-        /// let task = Task::new("Task 1", 10, "m");
-        /// ```
+        /// 
         /// # Panics
         /// This function will panic if the duration is not a number
         /// # Errors
