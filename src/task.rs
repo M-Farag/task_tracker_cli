@@ -2,6 +2,8 @@
 
 use std::{fs, error::Error, io::Write};
 use std::env;
+use chrono::prelude::*;
+
 #[derive(Debug)]
 pub struct Task {
     name:String,
@@ -54,7 +56,8 @@ impl Task{
             .append(true)
             .open(Task::TASKS_FILE_NAME)?;
 
-            writeln!(file_handler,"Task: {},Duration: {}{}",&self.name,&self.duration,&self.unit)?;
+            let local_time = Local::now();
+            writeln!(file_handler,"LogDateTime: {}, Task: {},Duration: {}{}",local_time.format("%Y-%m-%d %I:%M:%S %p"),&self.name,&self.duration,&self.unit)?;
             Ok(true)
         }
 

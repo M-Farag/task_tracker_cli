@@ -1,6 +1,6 @@
 [package]
 name = "ttc"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "A fun CLI helps you track your tasks & log the time to a flat file"
@@ -9,3 +9,5 @@ description = "A fun CLI helps you track your tasks & log the time to a flat fil
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = "0.4.24"
+
