@@ -1,13 +1,12 @@
 //! Tasks module contains all the necessary functions to create a task and log it to a file
 
 use std::{fs, error::Error, io::Write};
-use std::env;
 use chrono::prelude::*;
 use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name="Task tracker cli  app",about="Track your tasks and log it to file")]
-struct config {
+struct Config {
     #[structopt(long="name",short="n",help="Name of the task")]
     name:String,
 
@@ -18,10 +17,13 @@ struct config {
     unit:String,   
 }
 
-impl config{
-    pub fn get_arguments() -> config
+impl Config{
+    pub fn get_arguments() -> Result<Config,Box<dyn Error>>
     {
-        config::from_args()
+        if let Err(e) = Config::from_args_safe() {
+            return Err(format!("{}",e).into())
+        }
+        Ok(Config::from_args())
     }
 }
 
@@ -42,13 +44,14 @@ impl Task{
         /// * `unit` - Unit of the duration
         /// 
         /// # Panics
-        /// This function will panic if the duration is not a number
+        /// This function will panic if any of the arguments are not valid
+        /// 
         /// # Errors
         /// This function will return an error if the duration is not a number
         /// 
         pub fn new() -> Result<Task,Box<dyn Error>>
         {
-            let arguments = config::get_arguments();
+            let arguments = Config::get_arguments()?;
             Ok(Task { name:arguments.name, duration:arguments.duration, unit:arguments.unit })
         }
 
@@ -77,12 +80,6 @@ impl Task{
             writeln!(file_handler,"LogDateTime: {}, Task: {},Duration: {}{}",local_time.format("%Y-%m-%d %I:%M:%S %p"),&self.name,&self.duration,&self.unit)?;
             Ok(true)
         }
-
-        fn parse_duration(duration:&String) -> Result<u64,Box<dyn Error>>
-        {
-            let duration = duration.parse::<u64>()?;
-            Ok(duration)
-        }
     
 }
 
@@ -90,15 +87,4 @@ impl Task{
 mod test_task_module {
     use super::*;
 
-    #[test]
-    fn test_parse_duration() {
-        let duration = Task::parse_duration(&String::from("10")).unwrap();
-        assert_eq!(duration, 10);
-    }
-
-    #[test]
-    #[should_panic]
-    fn test_parse_duration_error() {
-        let duration = Task::parse_duration(&String::from("ten")).unwrap();
-    }
 }

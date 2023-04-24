@@ -3,7 +3,7 @@ use ttc::Task;
 fn main() {
     
     let t1:Task = Task::new().unwrap_or_else(|err|{
-        println!("Err: {err}");
+        println!("{err}");
         std::process::exit(1);
     });
 
