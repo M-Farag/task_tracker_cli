@@ -10,4 +10,5 @@ description = "A fun CLI helps you track your tasks & log the time to a flat fil
 
 [dependencies]
 chrono = "0.4.24"
+structopt = "0.3.26"
 

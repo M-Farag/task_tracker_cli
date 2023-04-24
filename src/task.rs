@@ -3,6 +3,27 @@
 use std::{fs, error::Error, io::Write};
 use std::env;
 use chrono::prelude::*;
+use structopt::StructOpt;
+
+#[derive(Debug, StructOpt)]
+#[structopt(name="Task tracker cli  app",about="Track your tasks and log it to file")]
+struct config {
+    #[structopt(long="name",short="n",help="Name of the task")]
+    name:String,
+
+    #[structopt(long="duration",short="d",help="Duration of the task")]
+    duration:u64,
+
+    #[structopt(long="unit",short="u",default_value="s",help="Unit of the duration can be h for hours, m for minutes and s for seconds, default is seconds")]
+    unit:String,   
+}
+
+impl config{
+    pub fn get_arguments() -> config
+    {
+        config::from_args()
+    }
+}
 
 #[derive(Debug)]
 pub struct Task {
@@ -27,21 +48,17 @@ impl Task{
         /// 
         pub fn new() -> Result<Task,Box<dyn Error>>
         {
-            let arguments:Vec<String> = env::args().collect();
-            if arguments.len() < 4 {
-                return Err("Err: Not enough arguments".into());
-            }
-            let duration = Task::parse_duration(&arguments[2])?;
-            Ok(Task { name: arguments[1].clone(), duration: duration, unit: arguments[3].clone() })
+            let arguments = config::get_arguments();
+            Ok(Task { name:arguments.name, duration:arguments.duration, unit:arguments.unit })
         }
 
         pub fn start_task(&self) -> ()
         {
             println!("Started task: {},Duration: {}{}", &self.name, &self.duration, &self.unit);
             let sleep_time = match &self.unit[..] {
-                "s"|"seconds"  => self.duration * 1000,
-                "m"| "minutes" => self.duration * 60 * 1000,
-                "h"| "hours"  => self.duration * 60 * 60 * 1000,
+                "s"  => self.duration * 1000,
+                "m" => self.duration * 60 * 1000,
+                "h"  => self.duration * 60 * 60 * 1000,
                 _ => 0
             };
 
