@@ -22,6 +22,7 @@ Default behavior is to track time spent on a task, the thread will be sleeping f
    - ` -u h` the flag -u is used to specify the unit of time for the duration of the task. The unit can be h for hours, m for minutes or s for seconds
 
 #### Without time tracking
+Using the flag `-l` will log the task to a flat file without time tracking
 
 - `ttc -n "task name" -d 1 -u h -l` - start a task
    - `ttc` is the CLI app name
