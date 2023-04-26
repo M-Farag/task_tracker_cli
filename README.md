@@ -11,11 +11,26 @@ This is a CLI app that helps you track your tasks and time spent on them.
 ### How to use it locally
 - Make sure you have the ~/.cargo/bin directory in your $PATH
 - On your terminal, run `cargo install ttc`
+
+####  With time tracking
+Default behavior is to track time spent on a task, the thread will be sleeping for the duration of the task. The thread will be woken up when the task is completed & automatically log the task to a flat file.
+
 - `ttc -n "task name" -d 1 -u h` - start a task
    - `ttc` is the CLI app name
    - ` -n "task name" ` The flag -n is used to specify the task name
    - ` -d 1 ` the flag -d is used to specify the duration of the task
    - ` -u h` the flag -u is used to specify the unit of time for the duration of the task. The unit can be h for hours, m for minutes or s for seconds
+
+#### Without time tracking
+
+- `ttc -n "task name" -d 1 -u h -l` - start a task
+   - `ttc` is the CLI app name
+   - ` -n "task name" ` The flag -n is used to specify the task name
+   - ` -d 1 ` the flag -d is used to specify the duration of the task
+   - ` -u h` the flag -u is used to specify the unit of time for the duration 
+   of the task. The unit can be h for hours, m for minutes or s for seconds
+   - ` -l` the flag -l is used to specify that you want to log the task to a flat file without time tracking
+
 
 ### Why I built it
 I wanted to build a CLI app that helps me track my tasks and time spent on them. I also wanted to build a CLI app that I can use to learn more about building CLI apps with Rust.

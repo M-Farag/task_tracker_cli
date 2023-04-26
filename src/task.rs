@@ -17,7 +17,7 @@ struct Config {
     unit:String,  
 
     #[structopt(long="log",short="l",help="Log the task to file without waiting for the task to complete")]
-    log_Without_wait:bool
+    log_without_wait:bool
 }
 
 impl Config{
@@ -35,7 +35,7 @@ pub struct Task {
     name:String,
     duration:u64,
     unit:String,
-    log_Without_wait:bool
+    log_without_wait:bool
 }
 
 impl Task{
@@ -56,7 +56,7 @@ impl Task{
         pub fn new() -> Result<Task,Box<dyn Error>>
         {
             let arguments = Config::get_arguments()?;
-            Ok(Task { name:arguments.name, duration:arguments.duration, unit:arguments.unit,log_Without_wait:arguments.log_Without_wait })
+            Ok(Task { name:arguments.name, duration:arguments.duration, unit:arguments.unit,log_without_wait:arguments.log_without_wait })
         }
 
         pub fn start_task(&self) -> ()
@@ -69,7 +69,7 @@ impl Task{
                 _ => 0
             };
 
-            if ! self.log_Without_wait {
+            if ! self.log_without_wait {
                 std::thread::sleep(std::time::Duration::from_millis(sleep_time));
                 println!("Finished task: {}", &self.name);
             }
